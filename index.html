@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>おなかノート｜おなかの調子と食事の記録｜無料・登録不要</title>
+<meta name="description" content="おなかの調子・お通じ・食事をタップだけで記録できる無料アプリ。食べた物とその翌日の調子の関係を自動で集計するので、自分に合わない食べ物に気づけます。登録不要、記録は端末内だけに保存。">
+<meta name="theme-color" content="#ff8a3d">
+<link rel="canonical" href="https://onaka-note.kkpwebninja.com/">
+<!-- WEBNINJA_UNIFIED_FAVICON -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+<meta property="og:title" content="おなかノート｜おなかの調子と食事の記録">
+<meta property="og:description" content="調子・お通じ・食事をタップだけで記録。食べた物と翌日の調子の関係が自動で見えます。無料・登録不要">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://onaka-note.kkpwebninja.com/">
+<meta property="og:site_name" content="おなかノート">
+<meta property="og:image" content="https://onaka-note.kkpwebninja.com/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://onaka-note.kkpwebninja.com/ogp.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "おなかノート",
+  "url": "https://onaka-note.kkpwebninja.com/",
+  "description": "おなかの調子・お通じ・食事を記録し、食べた物と翌日の調子の関係を自動で集計する無料のセルフケア記録アプリ。登録不要で、記録は端末内にのみ保存されます。",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Web",
+  "offers": {"@type":"Offer","price":"0","priceCurrency":"JPY"},
+  "author": {"@type":"Person","name":"こーきっぺ"}
+}
+</script>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2LM85GJN0L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2LM85GJN0L');
+</script>
+
+<!-- AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1298304917726270" crossorigin="anonymous"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff9ec;
+  --surface:#ffffff;
+  --ink:#3d3229;
+  --sub:#8b7d6b;
+  --line:#ecdfc8;
+  --line-soft:#f6eddc;
+  --accent:#ff8a3d;
+  /* 体調5段階（わるい→快調）。意味を持つ配色なので変更しない */
+  --c1:#C4553D;
+  --c2:#D98F45;
+  --c3:#C9B45C;
+  --c4:#7FA85F;
+  --c5:#2F6B4F;
+  --r:14px;
+  --shadow:0 1px 2px rgba(139,107,61,.06), 0 8px 24px -16px rgba(139,107,61,.3);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;
+  font-size:15px;
+  line-height:1.7;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom));
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.disp{font-family:"Zen Maru Gothic",system-ui,sans-serif;font-weight:700;letter-spacing:.02em}
+.mono{font-family:"DM Mono",ui-monospace,monospace;font-feature-settings:"tnum"}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+/* ---------- shell ---------- */
+.wrap{max-width:560px;margin:0 auto;padding:0 16px}
+header.app{
+  position:sticky;top:0;z-index:20;
+  background:rgba(255,249,236,.92);
+  backdrop-filter:saturate(1.4) blur(8px);
+  border-bottom:1px solid var(--line-soft);
+}
+header.app .inner{max-width:560px;margin:0 auto;padding:12px 16px;display:flex;align-items:baseline;gap:10px}
+header.app h1{font-size:17px;margin:0}
+header.app .save{margin-left:auto;font-size:11px;color:var(--sub);opacity:0;transition:opacity .25s}
+header.app .save.on{opacity:1}
+
+.card{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.card > .lab{font-size:12px;letter-spacing:.08em;color:var(--sub);margin:0 0 12px;font-weight:600}
+section.tab{display:none;padding-top:14px}
+section.tab.on{display:block}
+
+/* ---------- date nav ---------- */
+.datenav{display:flex;align-items:center;gap:8px;margin:14px 0 12px}
+.datenav .arrow{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:16px;color:var(--sub)}
+.datenav .arrow:active{background:var(--line-soft)}
+.datenav .today-d{flex:1;text-align:center}
+.datenav .d1{font-size:19px;font-family:"Zen Maru Gothic",sans-serif;font-weight:700;line-height:1.2}
+.datenav .d2{font-size:11px;color:var(--sub);letter-spacing:.06em}
+.datenav .jump{font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:99px;padding:4px 10px;opacity:0;pointer-events:none;transition:opacity .2s}
+.datenav .jump.on{opacity:1;pointer-events:auto}
+
+/* ---------- signature: condition strip ---------- */
+.strip{display:flex;gap:4px;align-items:flex-end;height:78px}
+.strip button{
+  flex:1;border-radius:10px;position:relative;
+  background:var(--tone);opacity:.22;height:40%;
+  transition:height .22s cubic-bezier(.2,.8,.3,1),opacity .22s;
+}
+.strip button[aria-pressed="true"]{opacity:1;height:100%}
+.strip button:not([aria-pressed="true"]):hover{opacity:.4}
+.strip button span{
+  position:absolute;left:0;right:0;bottom:6px;text-align:center;
+  font-size:10px;color:#fff;opacity:0;transition:opacity .2s;font-weight:600;
+  text-shadow:0 1px 2px rgba(0,0,0,.25)
+}
+.strip button[aria-pressed="true"] span{opacity:1}
+.strip-caption{display:flex;justify-content:space-between;font-size:11px;color:var(--sub);margin-top:8px}
+
+/* ---------- chips ---------- */
+.rowlab{font-size:12px;color:var(--sub);margin:14px 0 7px;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{
+  border:1px solid var(--line);background:var(--surface);border-radius:99px;
+  padding:5px 12px;font-size:13px;color:var(--ink);transition:.15s
+}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip.ghost{border-style:dashed;color:var(--sub)}
+.chip.ghost:active{background:var(--line-soft)}
+
+/* ---------- meals ---------- */
+.meal{border-top:1px solid var(--line-soft);padding:13px 0}
+.meal:first-of-type{border-top:none;padding-top:4px}
+.meal .head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.meal .head b{font-family:"Zen Maru Gothic",sans-serif;font-size:14px}
+.meal .head .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:.35}
+.tag{
+  display:inline-flex;align-items:center;gap:6px;background:#fdf1e2;border:1px solid #f3ddc2;
+  color:#6b5334;border-radius:8px;padding:4px 6px 4px 10px;font-size:13px
+}
+.tag i{font-style:normal;color:#b39769;font-size:15px;line-height:1;padding:0 2px}
+.addwrap{display:flex;gap:6px;margin-top:8px}
+.addwrap input{
+  flex:1;min-width:0;border:1px solid var(--line);background:#fff;border-radius:9px;
+  padding:8px 11px;font:inherit;font-size:14px;color:var(--ink)
+}
+.addwrap input::placeholder{color:#b8a894}
+.addwrap button{border:1px solid var(--accent);color:var(--accent);border-radius:9px;padding:0 14px;font-size:13px;font-weight:600}
+.sugg{font-size:11px;color:var(--sub);margin:8px 0 5px}
+textarea{
+  width:100%;border:1px solid var(--line);background:#fff;border-radius:9px;padding:10px 12px;
+  font:inherit;font-size:14px;resize:vertical;min-height:62px;color:var(--ink)
+}
+
+/* ---------- calendar ---------- */
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.cal-head .m{font-family:"Zen Maru Gothic",sans-serif;font-size:17px;font-weight:700}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.cal-grid .wd{text-align:center;font-size:10px;color:var(--sub);padding-bottom:2px}
+.cal-grid .wd.sun{color:#C4553D}
+.cal-grid .wd.sat{color:#5B7C99}
+.cell{aspect-ratio:1;border-radius:9px;display:grid;place-content:center;gap:2px;font-size:13px;background:#fdf6ea;border:1px solid transparent;position:relative}
+.cell.empty{background:none}
+.cell.has{color:#fff;font-weight:600}
+.cell.today{border-color:var(--ink)}
+.cell.sel{outline:2px solid var(--ink);outline-offset:1px}
+.cell .mk{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:#c2ad90}
+.cell.has .mk{background:rgba(255,255,255,.75)}
+.legend{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sub);margin-top:12px;justify-content:center}
+.legend .sw{width:15px;height:9px;border-radius:3px}
+
+.detail{margin-top:12px;border-top:1px solid var(--line-soft);padding-top:12px;font-size:13.5px}
+.detail .dl{display:flex;gap:10px;padding:3px 0}
+.detail .dl b{font-weight:600;color:var(--sub);font-size:12px;min-width:44px;flex:none;padding-top:2px}
+.detail .edit{margin-top:10px;font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:99px;padding:5px 13px}
+
+/* ---------- trend ---------- */
+.trend{display:flex;align-items:flex-end;gap:2px;height:64px}
+.trend div{flex:1;border-radius:3px 3px 1px 1px;background:#f2e6d3;min-height:3px}
+
+/* ---------- analysis ---------- */
+.stat{display:flex;gap:22px;align-items:baseline}
+.stat .n{font-family:"DM Mono",monospace;font-size:26px;font-weight:500;line-height:1}
+.stat .u{font-size:11px;color:var(--sub);margin-left:3px}
+.stat .k{font-size:11px;color:var(--sub);display:block;margin-top:4px}
+.rank{margin-top:4px}
+.rank .r{display:flex;align-items:center;gap:10px;padding:7px 0;border-top:1px solid var(--line-soft)}
+.rank .r:first-child{border-top:none}
+.rank .nm{font-size:14px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rank .ct{font-size:10px;color:var(--sub);flex:none}
+.rank .bar{width:84px;height:8px;background:#f2e6d3;border-radius:99px;position:relative;flex:none;overflow:hidden}
+.rank .bar i{position:absolute;top:0;bottom:0;border-radius:99px}
+.rank .sc{font-family:"DM Mono",monospace;font-size:12px;width:34px;text-align:right;flex:none}
+.note{font-size:11.5px;color:var(--sub);line-height:1.6;margin-top:10px}
+.empty{color:var(--sub);font-size:13px;text-align:center;padding:22px 8px}
+
+/* ---------- tabbar ---------- */
+nav.tabs{
+  position:fixed;left:0;right:0;bottom:0;z-index:30;
+  background:rgba(255,252,247,.96);backdrop-filter:blur(10px);
+  border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+nav.tabs .inner{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
+nav.tabs button{padding:11px 0 13px;text-align:center;color:var(--sub);font-size:11px;letter-spacing:.04em}
+nav.tabs button .ic{display:block;height:19px;margin-bottom:2px}
+nav.tabs button svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs button[aria-selected="true"]{color:var(--accent);font-weight:700}
+
+footer{text-align:center;font-size:10.5px;color:#b8a894;padding:6px 0 18px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="app">
+  <div class="inner">
+    <h1>おなかノート</h1>
+    <span class="save" id="saveMark">保存しました</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ============ 記録 ============ -->
+<section class="tab on" id="tab-log">
+  <div class="datenav">
+    <button class="arrow" id="prevD" aria-label="前の日">‹</button>
+    <div class="today-d">
+      <div class="d1" id="dLabel">—</div>
+      <div class="d2 mono" id="dSub"></div>
+    </div>
+    <button class="arrow" id="nextD" aria-label="次の日">›</button>
+  </div>
+  <div style="text-align:center;margin:-4px 0 12px"><button class="jump" id="jumpToday">今日にもどる</button></div>
+
+  <div class="card">
+    <p class="lab">おなかの調子</p>
+    <div class="strip" id="strip"></div>
+    <div class="strip-caption"><span>わるい</span><span id="condName">えらぶ</span><span>快調</span></div>
+  </div>
+
+  <div class="card">
+    <p class="lab">からだのようす</p>
+    <div class="rowlab">お通じ</div>
+    <div class="chips" id="poo"></div>
+    <div class="rowlab">気になること</div>
+    <div class="chips" id="sym"></div>
+  </div>
+
+  <div class="card">
+    <p class="lab">食べたもの</p>
+    <div id="meals"></div>
+  </div>
+
+  <div class="card">
+    <p class="lab">ひとこと</p>
+    <textarea id="memo" placeholder="外食、体調、飲んだ薬など"></textarea>
+  </div>
+</section>
+
+<!-- ============ カレンダー ============ -->
+<section class="tab" id="tab-cal">
+  <div class="card" style="margin-top:14px">
+    <div class="cal-head">
+      <button class="arrow" id="prevM" aria-label="前の月">‹</button>
+      <span class="m" id="mLabel"></span>
+      <button class="arrow" id="nextM" aria-label="次の月">›</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="legend">
+      <span>わるい</span>
+      <span class="sw" style="background:var(--c1)"></span>
+      <span class="sw" style="background:var(--c2)"></span>
+      <span class="sw" style="background:var(--c3)"></span>
+      <span class="sw" style="background:var(--c4)"></span>
+      <span class="sw" style="background:var(--c5)"></span>
+      <span>快調</span>
+    </div>
+    <div class="detail" id="calDetail" hidden></div>
+  </div>
+  <div class="card">
+    <p class="lab">この30日の流れ</p>
+    <div class="trend" id="trend"></div>
+    <p class="note">左が30日前、右が今日です。</p>
+  </div>
+</section>
+
+<!-- ============ ふりかえり ============ -->
+<section class="tab" id="tab-stat">
+  <div class="card" style="margin-top:14px">
+    <p class="lab">これまでの記録</p>
+    <div class="stat">
+      <div><span class="n mono" id="stDays">0</span><span class="u">日</span><span class="k">記録した日数</span></div>
+      <div><span class="n mono" id="stAvg">—</span><span class="u">/5</span><span class="k">調子の平均</span></div>
+      <div><span class="n mono" id="stGood">0</span><span class="u">%</span><span class="k">調子がいい日</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="lab">調子がよかった日によく食べたもの</p>
+    <div class="rank" id="rankGood"></div>
+  </div>
+
+  <div class="card">
+    <p class="lab">気をつけたいかもしれないもの</p>
+    <div class="rank" id="rankBad"></div>
+    <p class="note">食べた日と、その翌日の調子を平均して、全体の平均とくらべています。3回以上食べたものだけが出ます。あくまで目安なので、気になるものは一度やめてみて確かめるのがいちばん確実です。</p>
+  </div>
+</section>
+
+<!-- WEBNINJA_UNIFIED_FOOTER -->
+<footer style="text-align:center;padding:2rem 1rem 2.5rem;font-size:0.78rem;color:#94a3b8;line-height:2;border-top:1px solid #f0e6d2;margin-top:2.5rem;background:#fffcf7;">
+  <div style="font-weight:800;color:#8b6b3d;font-size:0.85rem;margin-bottom:0.4rem;">web忍者の砦</div>
+  <div>
+    <a href="https://kkpwebninja.com/" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">本丸トップ</a>·
+    <a href="https://privacypolicy.kkpwebninja.com/" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">プライバシーポリシー</a>·
+    <a href="https://kkpwebninja.com/otoiawase" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">お問い合わせ</a>·
+    <a href="https://x.com/kkp_webninja" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">@kkp_webninja</a>
+  </div>
+  <div style="margin-top:0.5rem;color:#bfa97a;">© 2025-2026 web忍者の砦</div>
+</footer>
+</div>
+
+<nav class="tabs">
+  <div class="inner">
+    <button data-tab="log" aria-selected="true"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 10h8M8 14h5"/></svg></span>きろく</button>
+    <button data-tab="cal" aria-selected="false"><span class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span>カレンダー</button>
+    <button data-tab="stat" aria-selected="false"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 19V11M12 19V5M19 19v-6"/></svg></span>ふりかえり</button>
+  </div>
+</nav>
+
+<script>
+/* ===================== data layer ===================== */
+const KEY = 'onaka-note-v1';
+const store = {
+  async get(){
+    try{
+      if(window.storage){ const r = await window.storage.get(KEY); return r ? JSON.parse(r.value) : null; }
+      const s = localStorage.getItem(KEY); return s ? JSON.parse(s) : null;
+    }catch(e){ return null; }
+  },
+  async set(v){
+    const s = JSON.stringify(v);
+    if(window.storage) await window.storage.set(KEY, s);
+    else localStorage.setItem(KEY, s);
+  }
+};
+
+let DB = { logs:{}, freq:{} };      // logs[ymd] = {c, poo, sym[], meals{}, memo}
+let cur = new Date();               // 記録中の日
+let calMonth = new Date();
+let selCell = null;
+
+const SLOTS = [['morning','朝'],['noon','昼'],['night','夜'],['snack','間食']];
+const POO   = ['なし','ふつう','やわらかい','下痢','かたい','便秘'];
+const SYM   = ['はり','痛み','ガス','ゴロゴロ','胸やけ','吐き気','食欲なし'];
+const COND  = [['わるい','var(--c1)'],['いまいち','var(--c2)'],['ふつう','var(--c3)'],['いい','var(--c4)'],['快調','var(--c5)']];
+const COLOR = ['#C4553D','#D98F45','#C9B45C','#7FA85F','#2F6B4F'];
+const WD    = ['日','月','火','水','木','金','土'];
+
+const ymd = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const todayY = () => ymd(new Date());
+const shift = (y,n)=>{ const [a,b,c]=y.split('-').map(Number); const d=new Date(a,b-1,c+n); return ymd(d); };
+const blank = () => ({c:0, poo:'', sym:[], meals:{morning:[],noon:[],night:[],snack:[]}, memo:''});
+function log(y){ if(!DB.logs[y]) DB.logs[y] = blank(); return DB.logs[y]; }
+function hasContent(l){ return l && (l.c || l.poo || l.sym.length || l.memo.trim() || SLOTS.some(([k])=>l.meals[k].length)); }
+
+let t=null;
+function save(){
+  clearTimeout(t);
+  t = setTimeout(async()=>{
+    for(const y of Object.keys(DB.logs)) if(!hasContent(DB.logs[y])) delete DB.logs[y];
+    try{ await store.set(DB); flash(); }catch(e){ console.error(e); }
+  }, 350);
+}
+function flash(){
+  const m = document.getElementById('saveMark');
+  m.classList.add('on'); clearTimeout(m._t);
+  m._t = setTimeout(()=>m.classList.remove('on'), 1100);
+}
+
+/* ===================== 記録タブ ===================== */
+function renderDate(){
+  const y = ymd(cur), [Y,M,D] = y.split('-').map(Number);
+  document.getElementById('dLabel').textContent = `${M}月${D}日 (${WD[cur.getDay()]})`;
+  document.getElementById('dSub').textContent = y === todayY() ? 'きょう' : `${Y}`;
+  document.getElementById('jumpToday').classList.toggle('on', y !== todayY());
+}
+
+function buildStrip(){
+  const s = document.getElementById('strip');
+  s.innerHTML = '';
+  COND.forEach(([name,col],i)=>{
+    const b = document.createElement('button');
+    b.style.setProperty('--tone', col);
+    b.setAttribute('aria-label', name);
+    b.innerHTML = `<span>${i+1}</span>`;
+    b.onclick = ()=>{
+      const l = log(ymd(cur));
+      l.c = (l.c === i+1) ? 0 : i+1;
+      paintStrip(); save();
+    };
+    s.appendChild(b);
+  });
+}
+function paintStrip(){
+  const l = log(ymd(cur));
+  [...document.getElementById('strip').children].forEach((b,i)=>
+    b.setAttribute('aria-pressed', l.c === i+1 ? 'true' : 'false'));
+  document.getElementById('condName').textContent = l.c ? COND[l.c-1][0] : 'えらぶ';
+}
+
+function buildChips(){
+  const p = document.getElementById('poo'); p.innerHTML='';
+  POO.forEach(v=>{
+    const b = document.createElement('button'); b.className='chip'; b.textContent=v;
+    b.onclick = ()=>{ const l=log(ymd(cur)); l.poo = l.poo===v ? '' : v; paintChips(); save(); };
+    p.appendChild(b);
+  });
+  const s = document.getElementById('sym'); s.innerHTML='';
+  SYM.forEach(v=>{
+    const b = document.createElement('button'); b.className='chip'; b.textContent=v;
+    b.onclick = ()=>{
+      const l=log(ymd(cur)); const i=l.sym.indexOf(v);
+      i<0 ? l.sym.push(v) : l.sym.splice(i,1);
+      paintChips(); save();
+    };
+    s.appendChild(b);
+  });
+}
+function paintChips(){
+  const l = log(ymd(cur));
+  [...document.getElementById('poo').children].forEach(b=>b.setAttribute('aria-pressed', b.textContent===l.poo));
+  [...document.getElementById('sym').children].forEach(b=>b.setAttribute('aria-pressed', l.sym.includes(b.textContent)));
+}
+
+function addFood(slot, name){
+  name = name.trim(); if(!name) return;
+  const l = log(ymd(cur));
+  if(!l.meals[slot].includes(name)) l.meals[slot].push(name);
+  DB.freq[slot] = DB.freq[slot] || {};
+  DB.freq[slot][name] = (DB.freq[slot][name]||0) + 1;
+  renderMeals(); save();
+}
+function topFoods(slot, exclude){
+  const f = DB.freq[slot] || {};
+  return Object.entries(f).sort((a,b)=>b[1]-a[1]).map(e=>e[0])
+         .filter(n=>!exclude.includes(n)).slice(0,8);
+}
+function renderMeals(){
+  const l = log(ymd(cur));
+  const box = document.getElementById('meals');
+  const focus = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.slot : null;
+  box.innerHTML = '';
+  SLOTS.forEach(([k,label])=>{
+    const d = document.createElement('div'); d.className='meal';
+    const items = l.meals[k];
+    const sugg = topFoods(k, items);
+    d.innerHTML = `
+      <div class="head"><span class="dot"></span><b>${label}</b></div>
+      <div class="chips" data-list="${k}">
+        ${items.map(n=>`<span class="tag">${esc(n)}<i data-del="${k}" data-n="${esc(n)}">×</i></span>`).join('') || '<span style="font-size:12.5px;color:#b8a894">まだありません</span>'}
+      </div>
+      ${sugg.length ? `<div class="sugg">よく食べるもの</div><div class="chips">${sugg.map(n=>`<button class="chip ghost" data-add="${k}" data-n="${esc(n)}">+ ${esc(n)}</button>`).join('')}</div>` : ''}
+      <div class="addwrap">
+        <input type="text" placeholder="${label}に食べたもの" data-slot="${k}" enterkeyhint="done">
+        <button data-go="${k}">追加</button>
+      </div>`;
+    box.appendChild(d);
+  });
+  box.querySelectorAll('[data-del]').forEach(x=> x.onclick = ()=>{
+    const arr = l.meals[x.dataset.del];
+    arr.splice(arr.indexOf(x.dataset.n),1); renderMeals(); save();
+  });
+  box.querySelectorAll('[data-add]').forEach(x=> x.onclick = ()=> addFood(x.dataset.add, x.dataset.n));
+  box.querySelectorAll('[data-go]').forEach(x=> x.onclick = ()=>{
+    const inp = box.querySelector(`input[data-slot="${x.dataset.go}"]`);
+    addFood(x.dataset.go, inp.value); inp.value='';
+  });
+  box.querySelectorAll('input[data-slot]').forEach(inp=>{
+    inp.onkeydown = e=>{ if(e.key==='Enter'){ e.preventDefault(); addFood(inp.dataset.slot, inp.value); inp.value=''; } };
+  });
+  if(focus){ const el = box.querySelector(`input[data-slot="${focus}"]`); if(el) el.focus(); }
+}
+const esc = s => s.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function renderLog(){
+  renderDate(); paintStrip(); paintChips(); renderMeals();
+  document.getElementById('memo').value = log(ymd(cur)).memo;
+}
+
+/* ===================== カレンダー ===================== */
+function renderCal(){
+  const Y = calMonth.getFullYear(), M = calMonth.getMonth();
+  document.getElementById('mLabel').textContent = `${Y}年 ${M+1}月`;
+  const g = document.getElementById('calGrid'); g.innerHTML='';
+  WD.forEach((w,i)=>{
+    const e = document.createElement('div');
+    e.className = 'wd' + (i===0?' sun':i===6?' sat':''); e.textContent = w; g.appendChild(e);
+  });
+  const first = new Date(Y,M,1).getDay(), last = new Date(Y,M+1,0).getDate();
+  for(let i=0;i<first;i++) g.insertAdjacentHTML('beforeend','<div class="cell empty"></div>');
+  for(let d=1; d<=last; d++){
+    const y = `${Y}-${String(M+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const l = DB.logs[y];
+    const b = document.createElement('button');
+    b.className = 'cell' + (l&&l.c ? ' has':'') + (y===todayY()?' today':'') + (y===selCell?' sel':'');
+    if(l&&l.c) b.style.background = COLOR[l.c-1];
+    b.innerHTML = d + (l && !l.c && hasContent(l) ? '<span class="mk"></span>' : '');
+    b.onclick = ()=>{ selCell = y; renderCal(); showDetail(y); };
+    g.appendChild(b);
+  }
+  renderTrend();
+}
+function showDetail(y){
+  const box = document.getElementById('calDetail');
+  const l = DB.logs[y];
+  const [Y,M,D] = y.split('-').map(Number);
+  const meals = SLOTS.map(([k,lb])=> l && l.meals[k].length ? `<div class="dl"><b>${lb}</b><span>${esc(l.meals[k].join('、'))}</span></div>` : '').join('');
+  box.hidden = false;
+  box.innerHTML = l && hasContent(l)
+    ? `<div style="font-family:'Zen Maru Gothic',sans-serif;font-weight:700;margin-bottom:6px">${M}月${D}日</div>
+       ${l.c ? `<div class="dl"><b>調子</b><span style="color:${COLOR[l.c-1]};font-weight:600">${COND[l.c-1][0]}</span></div>`:''}
+       ${l.poo ? `<div class="dl"><b>お通じ</b><span>${l.poo}</span></div>`:''}
+       ${l.sym.length ? `<div class="dl"><b>ようす</b><span>${l.sym.join('、')}</span></div>`:''}
+       ${meals}
+       ${l.memo ? `<div class="dl"><b>メモ</b><span>${esc(l.memo)}</span></div>`:''}
+       <button class="edit" data-e="${y}">この日を書きなおす</button>`
+    : `<div style="font-family:'Zen Maru Gothic',sans-serif;font-weight:700;margin-bottom:4px">${M}月${D}日</div>
+       <div style="color:var(--sub);font-size:13px">記録がありません。</div>
+       <button class="edit" data-e="${y}">この日を記録する</button>`;
+  box.querySelector('[data-e]').onclick = ()=>{
+    const [a,b2,c] = y.split('-').map(Number);
+    cur = new Date(a,b2-1,c); renderLog(); go('log'); window.scrollTo({top:0});
+  };
+}
+function renderTrend(){
+  const t = document.getElementById('trend'); t.innerHTML='';
+  let y = todayY();
+  const days = [];
+  for(let i=0;i<30;i++){ days.unshift(y); y = shift(y,-1); }
+  days.forEach(d=>{
+    const l = DB.logs[d];
+    const bar = document.createElement('div');
+    if(l && l.c){ bar.style.height = (l.c/5*100)+'%'; bar.style.background = COLOR[l.c-1]; }
+    else bar.style.height = '4px';
+    bar.title = d;
+    t.appendChild(bar);
+  });
+}
+
+/* ===================== ふりかえり ===================== */
+function renderStat(){
+  const ys = Object.keys(DB.logs).filter(y=>hasContent(DB.logs[y]));
+  const withC = ys.filter(y=>DB.logs[y].c);
+  document.getElementById('stDays').textContent = ys.length;
+  const avg = withC.length ? withC.reduce((s,y)=>s+DB.logs[y].c,0)/withC.length : null;
+  document.getElementById('stAvg').textContent = avg ? avg.toFixed(1) : '—';
+  const good = withC.filter(y=>DB.logs[y].c>=4).length;
+  document.getElementById('stGood').textContent = withC.length ? Math.round(good/withC.length*100) : 0;
+
+  // 食材 → 食べた日とその翌日の調子の平均
+  const acc = {};
+  ys.forEach(y=>{
+    const names = new Set(SLOTS.flatMap(([k])=>DB.logs[y].meals[k]));
+    const scores = [];
+    [y, shift(y,1)].forEach(d=>{ const l=DB.logs[d]; if(l&&l.c) scores.push(l.c); });
+    if(!scores.length) return;
+    const m = scores.reduce((a,b)=>a+b,0)/scores.length;
+    names.forEach(n=>{ (acc[n] = acc[n] || []).push(m); });
+  });
+  const base = avg || 3;
+  const list = Object.entries(acc).filter(([,v])=>v.length>=3)
+    .map(([n,v])=>({n, cnt:v.length, sc:v.reduce((a,b)=>a+b,0)/v.length}))
+    .map(o=>({...o, diff:o.sc-base}));
+
+  draw('rankGood', list.filter(o=>o.diff>0).sort((a,b)=>b.diff-a.diff).slice(0,7), true);
+  draw('rankBad',  list.filter(o=>o.diff<0).sort((a,b)=>a.diff-b.diff).slice(0,7), false);
+}
+function draw(id, arr, good){
+  const box = document.getElementById(id);
+  if(!arr.length){
+    box.innerHTML = '<div class="empty">記録がたまると、ここに出てきます。<br>同じものを3回以上たべた日が必要です。</div>';
+    return;
+  }
+  const max = Math.max(...arr.map(o=>Math.abs(o.diff)), .5);
+  box.innerHTML = arr.map(o=>{
+    const w = Math.max(6, Math.abs(o.diff)/max*100);
+    const col = good ? 'var(--c5)' : 'var(--c1)';
+    return `<div class="r">
+      <span class="nm">${esc(o.n)}</span>
+      <span class="ct">${o.cnt}回</span>
+      <span class="bar"><i style="width:${w}%;background:${col};${good?'left:0':'right:0'}"></i></span>
+      <span class="sc" style="color:${col}">${o.diff>0?'+':''}${o.diff.toFixed(1)}</span>
+    </div>`;
+  }).join('');
+}
+
+/* ===================== nav ===================== */
+function go(name){
+  document.querySelectorAll('section.tab').forEach(s=>s.classList.toggle('on', s.id === 'tab-'+name));
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-selected', b.dataset.tab===name));
+  if(name==='cal') renderCal();
+  if(name==='stat') renderStat();
+}
+document.querySelectorAll('nav.tabs button').forEach(b=> b.onclick = ()=>go(b.dataset.tab));
+document.getElementById('prevD').onclick = ()=>{ cur.setDate(cur.getDate()-1); renderLog(); };
+document.getElementById('nextD').onclick = ()=>{ cur.setDate(cur.getDate()+1); renderLog(); };
+document.getElementById('jumpToday').onclick = ()=>{ cur = new Date(); renderLog(); };
+document.getElementById('prevM').onclick = ()=>{ calMonth.setMonth(calMonth.getMonth()-1); renderCal(); };
+document.getElementById('nextM').onclick = ()=>{ calMonth.setMonth(calMonth.getMonth()+1); renderCal(); };
+document.getElementById('memo').oninput = e =>{ log(ymd(cur)).memo = e.target.value; save(); };
+
+/* ===================== boot ===================== */
+(async function(){
+  const d = await store.get();
+  if(d){ DB.logs = d.logs || {}; DB.freq = d.freq || {}; }
+  buildStrip(); buildChips(); renderLog();
+})();
+</script>
+</body>
+</html>
