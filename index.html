@@ -221,6 +221,11 @@ nav.tabs button[aria-selected="true"]{color:var(--accent);font-weight:700}
 
 footer{text-align:center;font-size:10.5px;color:#b8a894;padding:6px 0 18px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+.kkp-ad{text-align:center;margin:16px auto 0;max-width:680px;min-height:288px;padding-top:6px}
+.kkp-ad-label{font-size:11px;color:#b8a894;letter-spacing:.08em;margin:0 0 6px;line-height:1}
+.kkp-ad ins.adsbygoogle{display:block;width:300px;height:250px;margin:0 auto}
+@media(min-width:768px){.kkp-ad{min-height:318px}.kkp-ad ins.adsbygoogle{width:336px;height:280px}}
 </style>
 </head>
 <body>
@@ -318,6 +323,16 @@ footer{text-align:center;font-size:10.5px;color:#b8a894;padding:6px 0 18px}
     <p class="lab">気をつけたいかもしれないもの</p>
     <div class="rank" id="rankBad"></div>
     <p class="note">食べた日と、その翌日の調子を平均して、全体の平均とくらべています。3回以上食べたものだけが出ます。あくまで目安なので、気になるものは一度やめてみて確かめるのがいちばん確実です。</p>
+  </div>
+
+  <!-- ふりかえりを読み終えたところに広告。記録している最中には出さない -->
+  <div class="kkp-ad" id="statAd" hidden>
+    <div class="kkp-ad-label">広告</div>
+    <ins class="adsbygoogle" style="display:block"
+         data-ad-client="ca-pub-1298304917726270"
+         data-ad-slot="2937937957"
+         data-ad-format="rectangle"
+         data-full-width-responsive="false"></ins>
   </div>
 </section>
 
@@ -627,7 +642,19 @@ function go(name){
   document.querySelectorAll('section.tab').forEach(s=>s.classList.toggle('on', s.id === 'tab-'+name));
   document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-selected', b.dataset.tab===name));
   if(name==='cal') renderCal();
-  if(name==='stat') renderStat();
+  if(name==='stat'){ renderStat(); showStatAd(); }
+}
+
+/* ふりかえりを開いたときだけ広告を1回読み込む。
+   記録している最中（きろくタブ）には出さない。
+   枠が画面に出てから読み込む（隠れたまま読み込むと幅0で枠が死ぬ） */
+function showStatAd(){
+  if(showStatAd.done) return;
+  const box = document.getElementById('statAd');
+  if(!box) return;
+  showStatAd.done = true;
+  box.hidden = false;
+  requestAnimationFrame(()=>{ try{ (window.adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){} });
 }
 document.querySelectorAll('nav.tabs button').forEach(b=> b.onclick = ()=>go(b.dataset.tab));
 document.getElementById('prevD').onclick = ()=>{ cur.setDate(cur.getDate()-1); renderLog(); };
