@@ -99,6 +99,9 @@ header.app .save.on{opacity:1}
 
 .card{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
 .card > .lab{font-size:12px;letter-spacing:.08em;color:var(--sub);margin:0 0 12px;font-weight:600}
+.memo-card{position:relative}
+.first-pic{position:absolute;right:14px;top:-18px;height:64px;width:auto;pointer-events:none}
+.first-pic[hidden]{display:none}
 section.tab{display:none;padding-top:14px}
 section.tab.on{display:block}
 
@@ -275,7 +278,10 @@ button.chip { border-radius: 6px; }
     <div id="meals"></div>
   </div>
 
-  <div class="card">
+  <div class="card memo-card">
+    <!-- 記録がまだ1件もないときだけ出す挿し絵（2026-09-25・Codex制作・シリーズ共通の女の子）。
+         体調の段階色とまぎれないよう、クリームと茶色だけの絵を小さく右上に置く -->
+    <img class="first-pic" id="firstPic" src="/img/first-note.webp" width="240" height="313" alt="" decoding="async" hidden>
     <p class="lab">ひとこと</p>
     <textarea id="memo" placeholder="外食、体調、飲んだ薬など"></textarea>
   </div>
@@ -417,6 +423,7 @@ function save(){
   t = setTimeout(async()=>{
     for(const y of Object.keys(DB.logs)) if(!hasContent(DB.logs[y])) delete DB.logs[y];
     try{ await store.set(DB); flash(); }catch(e){ console.error(e); }
+    toggleFirstPic();
   }, 350);
 }
 function flash(){
@@ -674,7 +681,9 @@ document.getElementById('memo').oninput = e =>{ log(ymd(cur)).memo = e.target.va
   const d = await store.get();
   if(d){ DB.logs = d.logs || {}; DB.freq = d.freq || {}; }
   buildStrip(); buildChips(); renderLog();
+  toggleFirstPic();
 })();
+function toggleFirstPic(){ const p=document.getElementById('firstPic'); if(p) p.hidden = Object.keys(DB.logs).some(y=>hasContent(DB.logs[y])); }
 </script>
 </body>
 </html>
