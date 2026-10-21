@@ -52,6 +52,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <!-- 筆と太字はこのページで使う字だけ（python3 ~/test/kkp-kit/fonttext.py index.html） -->
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=RocknRoll+One&display=swap&text=%25-%2F0123456789%40_abeijknpw%C2%A9%C2%B7%E2%80%94%E2%80%B9%E2%80%BA%E3%80%81%E3%80%82%E3%81%82%E3%81%84%E3%81%86%E3%81%88%E3%81%8A%E3%81%8B%E3%81%8C%E3%81%8D%E3%81%8E%E3%81%8F%E3%81%91%E3%81%93%E3%81%97%E3%81%98%E3%81%99%E3%81%9B%E3%81%9D%E3%81%9F%E3%81%A0%E3%81%A1%E3%81%A3%E3%81%A4%E3%81%A6%E3%81%A7%E3%81%A8%E3%81%A9%E3%81%AA%E3%81%AB%E3%81%AE%E3%81%AF%E3%81%B0%E3%81%B2%E3%81%B5%E3%81%B6%E3%81%B9%E3%81%BE%E3%81%BF%E3%82%81%E3%82%82%E3%82%84%E3%82%87%E3%82%88%E3%82%89%E3%82%8A%E3%82%8B%E3%82%8C%E3%82%8D%E3%82%8F%E3%82%92%E3%82%93%E3%82%A2%E3%82%A4%E3%82%A7%E3%82%A8%E3%82%AB%E3%82%B5%E3%82%B7%E3%82%BF%E3%83%80%E3%83%81%E3%83%83%E3%83%88%E3%83%8E%E3%83%90%E3%83%97%E3%83%9D%E3%83%9E%E3%83%A1%E3%83%A2%E3%83%A9%E3%83%AA%E3%83%AB%E3%83%AC%E3%83%B3%E3%83%BB%E3%83%BC%E4%B8%80%E4%B8%8A%E4%B8%8D%E4%B8%B8%E4%BA%8B%E4%BB%8A%E4%BB%A5%E4%BD%93%E4%BD%BF%E4%BF%9D%E5%85%A8%E5%87%BA%E5%89%8D%E5%8F%B3%E5%90%88%E5%91%8A%E5%93%A1%E5%95%8F%E5%9B%9E%E5%9C%A8%E5%9D%87%E5%AD%90%E5%AD%98%E5%AE%89%E5%AE%9F%E5%AE%B6%E5%B7%A6%E5%B9%B3%E5%B9%B4%E5%BA%83%E5%BA%A6%E5%BA%AB%E5%BF%8D%E5%BF%AB%E6%95%B0%E6%96%99%E6%97%8F%E6%97%A5%E6%9B%B8%E6%9C%AC%E6%A3%9A%E6%A5%AD%E6%AD%A2%E6%AF%8E%E6%B0%97%E6%B5%81%E7%84%A1%E7%90%86%E7%94%9F%E7%99%BB%E7%9B%AE%E7%A0%A6%E7%A2%BA%E7%A9%8D%E7%AD%8B%E7%AE%A1%E7%BF%8C%E8%80%85%E8%A4%87%E8%A6%81%E8%A6%A7%E8%A8%98%E8%AA%8C%E8%AA%95%E8%AA%AD%E8%AA%BF%E8%B2%B7%E8%BE%B2%E9%80%9A%E9%85%92%E9%87%8D%E9%8C%B2%E9%98%B2%E9%A3%9F%E9%BD%A2%EF%BC%86%EF%BD%9C" rel="stylesheet">
 <!-- 共通部品 D4（kkp-kit を kit/ にコピーしたもの。中は手で直さず kkp-kit 側で直して sync.sh） -->
 <link rel="stylesheet" href="/kit/kit.css">
@@ -61,7 +62,7 @@
   --bg:#fff9ec;
   --surface:#ffffff;
   --ink:#3d3229;
-  --sub:#8b7d6b;
+  --sub:#7a6d5e;
   --line:#ecdfc8;
   --line-soft:#f6eddc;
   --accent:#ff8a3d;
@@ -100,11 +101,11 @@ header.app{
 }
 header.app .inner{max-width:560px;margin:0 auto;padding:12px 16px;display:flex;align-items:baseline;gap:10px}
 header.app h1{font-size:17px;margin:0}
-header.app .save{margin-left:auto;font-size:11px;color:var(--sub);opacity:0;transition:opacity .25s}
+header.app .save{margin-left:auto;font-size:14px;color:var(--sub);opacity:0;transition:opacity .25s}
 header.app .save.on{opacity:1}
 
 .card{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
-.card > .lab{font-size:12px;letter-spacing:.08em;color:var(--sub);margin:0 0 12px;font-weight:600}
+.card > .lab{font-size:14px;letter-spacing:.08em;color:var(--sub);margin:0 0 12px;font-weight:600}
 .memo-card{position:relative}
 .first-pic{position:absolute;right:14px;top:-18px;height:64px;width:auto;pointer-events:none}
 .first-pic[hidden]{display:none}
@@ -117,8 +118,8 @@ section.tab.on{display:block}
 .datenav .arrow:active{background:var(--line-soft)}
 .datenav .today-d{flex:1;text-align:center}
 .datenav .d1{font-size:19px;font-family:"Zen Maru Gothic",sans-serif;font-weight:700;line-height:1.2}
-.datenav .d2{font-size:11px;color:var(--sub);letter-spacing:.06em}
-.jump{font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:99px;padding:4px 10px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s,visibility .2s}
+.datenav .d2{font-size:14px;color:var(--sub);letter-spacing:.06em}
+.jump{font-size:14px;color:var(--accent);border:1px solid var(--accent);border-radius:99px;padding:4px 10px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s,visibility .2s}
 .jump.on{opacity:1;visibility:visible;pointer-events:auto}
 
 /* ---------- signature: condition strip ---------- */
@@ -132,18 +133,18 @@ section.tab.on{display:block}
 .strip button:not([aria-pressed="true"]):hover{opacity:.4}
 .strip button span{
   position:absolute;left:0;right:0;bottom:6px;text-align:center;
-  font-size:10px;color:#fff;opacity:0;transition:opacity .2s;font-weight:600;
+  font-size:14px;color:#fff;opacity:0;transition:opacity .2s;font-weight:600;
   text-shadow:0 1px 2px rgba(0,0,0,.25)
 }
 .strip button[aria-pressed="true"] span{opacity:1}
-.strip-caption{display:flex;justify-content:space-between;font-size:11px;color:var(--sub);margin-top:8px}
+.strip-caption{display:flex;justify-content:space-between;font-size:14px;color:var(--sub);margin-top:8px}
 
 /* ---------- chips ---------- */
-.rowlab{font-size:12px;color:var(--sub);margin:14px 0 7px;font-weight:600}
+.rowlab{font-size:14px;color:var(--sub);margin:14px 0 7px;font-weight:600}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{
   border:1px solid var(--line);background:var(--surface);border-radius:99px;
-  padding:5px 12px;font-size:13px;color:var(--ink);transition:.15s
+  padding:5px 12px;font-size:14px;color:var(--ink);transition:.15s
 }
 .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
 .chip.ghost{border-style:dashed;color:var(--sub)}
@@ -157,7 +158,7 @@ section.tab.on{display:block}
 .meal .head .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:.35}
 .tag{
   display:inline-flex;align-items:center;gap:6px;background:#fdf1e2;border:1px solid #f3ddc2;
-  color:#6b5334;border-radius:8px;padding:4px 6px 4px 10px;font-size:13px
+  color:#6b5334;border-radius:8px;padding:4px 6px 4px 10px;font-size:14px
 }
 .tag i{font-style:normal;color:#b39769;font-size:15px;line-height:1;padding:0 2px}
 .addwrap{display:flex;gap:6px;margin-top:8px}
@@ -165,9 +166,9 @@ section.tab.on{display:block}
   flex:1;min-width:0;border:1px solid var(--line);background:#fff;border-radius:9px;
   padding:8px 11px;font:inherit;font-size:14px;color:var(--ink)
 }
-.addwrap input::placeholder{color:#b8a894}
-.addwrap button{border:1px solid var(--accent);color:var(--accent);border-radius:9px;padding:0 14px;font-size:13px;font-weight:600}
-.sugg{font-size:11px;color:var(--sub);margin:8px 0 5px}
+.addwrap input::placeholder{color:#847058}
+.addwrap button{border:1px solid var(--accent);color:var(--accent);border-radius:9px;padding:0 14px;font-size:14px;font-weight:600}
+.sugg{font-size:14px;color:var(--sub);margin:8px 0 5px}
 textarea{
   width:100%;border:1px solid var(--line);background:#fff;border-radius:9px;padding:10px 12px;
   font:inherit;font-size:14px;resize:vertical;min-height:62px;color:var(--ink)
@@ -177,23 +178,23 @@ textarea{
 .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .cal-head .m{font-family:"Zen Maru Gothic",sans-serif;font-size:17px;font-weight:700}
 .cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
-.cal-grid .wd{text-align:center;font-size:10px;color:var(--sub);padding-bottom:2px}
+.cal-grid .wd{text-align:center;font-size:14px;color:var(--sub);padding-bottom:2px}
 .cal-grid .wd.sun{color:#C4553D}
 .cal-grid .wd.sat{color:#5B7C99}
-.cell{aspect-ratio:1;border-radius:9px;display:grid;place-content:center;gap:2px;font-size:13px;background:#fdf6ea;border:1px solid transparent;position:relative}
+.cell{aspect-ratio:1;border-radius:9px;display:grid;place-content:center;gap:2px;font-size:14px;background:#fdf6ea;border:1px solid transparent;position:relative}
 .cell.empty{background:none}
 .cell.has{color:#fff;font-weight:600}
 .cell.today{border-color:var(--ink)}
 .cell.sel{outline:2px solid var(--ink);outline-offset:1px}
 .cell .mk{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:#c2ad90}
 .cell.has .mk{background:rgba(255,255,255,.75)}
-.legend{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sub);margin-top:12px;justify-content:center}
+.legend{display:flex;align-items:center;gap:5px;font-size:14px;color:var(--sub);margin-top:12px;justify-content:center}
 .legend .sw{width:15px;height:9px;border-radius:3px}
 
-.detail{margin-top:12px;border-top:1px solid var(--line-soft);padding-top:12px;font-size:13.5px}
+.detail{margin-top:12px;border-top:1px solid var(--line-soft);padding-top:12px;font-size:14px}
 .detail .dl{display:flex;gap:10px;padding:3px 0}
-.detail .dl b{font-weight:600;color:var(--sub);font-size:12px;min-width:44px;flex:none;padding-top:2px}
-.detail .edit{margin-top:10px;font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:99px;padding:5px 13px}
+.detail .dl b{font-weight:600;color:var(--sub);font-size:14px;min-width:44px;flex:none;padding-top:2px}
+.detail .edit{margin-top:10px;font-size:14px;color:var(--accent);border:1px solid var(--accent);border-radius:99px;padding:5px 13px}
 
 /* ---------- trend ---------- */
 .trend{display:flex;align-items:flex-end;gap:2px;height:64px}
@@ -202,18 +203,18 @@ textarea{
 /* ---------- analysis ---------- */
 .stat{display:flex;gap:22px;align-items:baseline}
 .stat .n{font-family:"DM Mono",monospace;font-size:26px;font-weight:500;line-height:1}
-.stat .u{font-size:11px;color:var(--sub);margin-left:3px}
-.stat .k{font-size:11px;color:var(--sub);display:block;margin-top:4px}
+.stat .u{font-size:14px;color:var(--sub);margin-left:3px}
+.stat .k{font-size:14px;color:var(--sub);display:block;margin-top:4px}
 .rank{margin-top:4px}
 .rank .r{display:flex;align-items:center;gap:10px;padding:7px 0;border-top:1px solid var(--line-soft)}
 .rank .r:first-child{border-top:none}
 .rank .nm{font-size:14px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.rank .ct{font-size:10px;color:var(--sub);flex:none}
+.rank .ct{font-size:14px;color:var(--sub);flex:none}
 .rank .bar{width:84px;height:8px;background:#f2e6d3;border-radius:99px;position:relative;flex:none;overflow:hidden}
 .rank .bar i{position:absolute;top:0;bottom:0;border-radius:99px}
-.rank .sc{font-family:"DM Mono",monospace;font-size:12px;width:34px;text-align:right;flex:none}
-.note{font-size:11.5px;color:var(--sub);line-height:1.6;margin-top:10px}
-.empty{color:var(--sub);font-size:13px;text-align:center;padding:22px 8px}
+.rank .sc{font-family:"DM Mono",monospace;font-size:14px;width:34px;text-align:right;flex:none}
+.note{font-size:14px;color:var(--sub);line-height:1.6;margin-top:10px}
+.empty{color:var(--sub);font-size:14px;text-align:center;padding:22px 8px}
 
 /* ---------- tabbar ---------- */
 nav.tabs{
@@ -223,16 +224,16 @@ nav.tabs{
   padding-bottom:env(safe-area-inset-bottom);
 }
 nav.tabs .inner{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
-nav.tabs button{padding:11px 0 13px;text-align:center;color:var(--sub);font-size:11px;letter-spacing:.04em}
+nav.tabs button{padding:11px 0 13px;text-align:center;color:var(--sub);font-size:14px;letter-spacing:.04em}
 nav.tabs button .ic{display:block;height:19px;margin-bottom:2px}
 nav.tabs button svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 nav.tabs button[aria-selected="true"]{color:var(--accent);font-weight:700}
 
-footer{text-align:center;font-size:10.5px;color:#b8a894;padding:6px 0 18px}
+footer{text-align:center;font-size:14px;color:#847058;padding:6px 0 18px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
 .kkp-ad{text-align:center;margin:16px auto 0;max-width:680px;min-height:288px;padding-top:6px}
-.kkp-ad-label{font-size:11px;color:#b8a894;letter-spacing:.08em;margin:0 0 6px;line-height:1}
+.kkp-ad-label{font-size:11px;color:#847058;letter-spacing:.08em;margin:0 0 6px;line-height:1}
 .kkp-ad ins.adsbygoogle{display:block;width:300px;height:250px;margin:0 auto}
 @media(min-width:768px){.kkp-ad{min-height:318px}.kkp-ad ins.adsbygoogle{width:336px;height:280px}}
 
@@ -245,7 +246,7 @@ button.chip { border-radius: 6px; }
    保存（localStorage の onaka-note-v1）・広告・GA4・JSON-LD・title も変えない。 */
 body{background:var(--bg) url(/kit/img/d4-washi.webp) 0 0/320px auto}
 header.app{background:var(--k-kinari) url(/kit/img/d4-washi.webp) 0 0/320px auto;border-bottom:var(--k-bw) solid var(--k-sumi);backdrop-filter:none}
-header.app h1{font-family:var(--k-brush);font-weight:400;font-size:20px;letter-spacing:.1em;color:var(--k-sumi)}
+header.app h1{font-family:var(--k-brush);font-weight:400;font-size:20px;letter-spacing:.08em;color:var(--k-sumi)}
 .card{border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);box-shadow:var(--k-sh-s)}
 .card > .lab{color:var(--k-text-2)}
 .datenav .arrow{border:var(--k-bw-s) solid var(--k-sumi);color:var(--k-sumi);width:44px;height:44px}
@@ -264,7 +265,7 @@ nav.tabs button[aria-selected="true"]{color:var(--k-shu);box-shadow:inset 0 3px 
 /* あわせて使えるアプリ（統一仕様の欄）を D4 に: 和紙の面・筆の見出し・墨の字＋オレンジの下線＋道しるべ。入れ物なので影なし（kit: 影は押せるものだけ）。中身とリンクは触らない（インライン style に勝つため !important） */
 @media screen{
 .kkp-rel{box-sizing:border-box;background:var(--k-kinari) url(/kit/img/d4-washi.webp) 0 0/320px auto!important;border:var(--k-bw-s) solid var(--k-sumi)!important;border-radius:var(--k-r)!important;box-shadow:none!important;padding:12px 16px 6px!important;color:var(--k-sumi);text-align:left}
-.kkp-rel>div:first-child,.kkp-rel>b:first-child{display:block;margin:0 0 4px!important;padding:0!important;border:0!important;font-family:var(--k-brush)!important;font-weight:400!important;font-size:19px!important;line-height:1.3!important;letter-spacing:.12em;color:var(--k-sumi)!important;font-feature-settings:"palt" 1}
+.kkp-rel>div:first-child,.kkp-rel>b:first-child{display:block;margin:0 0 4px!important;padding:0!important;border:0!important;font-family:var(--k-head)!important;font-weight:800!important;font-size:19px!important;line-height:1.3!important;letter-spacing:.04em;color:var(--k-sumi)!important;font-feature-settings:"palt" 1}
 .kkp-rel>a{display:flex!important;align-items:center;gap:12px;box-sizing:border-box;min-height:48px;margin:0!important;padding:10px 0!important;border:0!important;border-top:1px dashed var(--k-line-soft)!important;background:none!important;color:var(--k-sumi)!important;font-size:15px!important;font-weight:700!important;line-height:1.55!important;letter-spacing:.02em;text-decoration:underline!important;text-decoration-color:var(--k-orange)!important;text-decoration-thickness:2px!important;text-underline-offset:4px;-webkit-tap-highlight-color:transparent}
 .kkp-rel>a::after{content:"";flex:none;width:26px;height:17px;margin-left:auto;background:var(--k-sign) center/100% 100% no-repeat;transition:transform .2s}
 .kkp-rel>a:hover{color:var(--k-shu)!important}
@@ -398,8 +399,8 @@ nav.tabs button[aria-selected="true"]{color:var(--k-shu);box-shadow:inset 0 3px 
 </div>
 
 <!-- WEBNINJA_UNIFIED_FOOTER -->
-<footer style="text-align:center;padding:2rem 1rem 2.5rem;font-size:0.78rem;color:#94a3b8;line-height:2;border-top:1px solid #f0e6d2;margin-top:2.5rem;background:#fffcf7;">
-  <div style="font-weight:800;color:#8b6b3d;font-size:0.85rem;margin-bottom:0.4rem;">web忍者の砦</div>
+<footer style="text-align:center;padding:2rem 1rem 2.5rem;font-size:.875rem;color:#607490;line-height:2;border-top:1px solid #f0e6d2;margin-top:2.5rem;background:#fffcf7;">
+  <div style="font-weight:800;color:#8b6b3d;font-size:.875rem;margin-bottom:0.4rem;">web忍者の砦</div>
   <div>
     <a href="https://kkpwebninja.com/" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">本丸トップ</a>·
     <a href="https://kkpwebninja.com/apps" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">全アプリ一覧</a>·
@@ -407,7 +408,7 @@ nav.tabs button[aria-selected="true"]{color:var(--k-shu);box-shadow:inset 0 3px 
     <a href="https://kkpwebninja.com/otoiawase" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">お問い合わせ</a>·
     <a href="https://x.com/kkp_webninja" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">@kkp_webninja</a>
   </div>
-  <div style="margin-top:0.5rem;color:#bfa97a;">© 2025-2026 web忍者の砦</div>
+  <div style="margin-top:0.5rem;color:#846e40;">© 2025-2026 web忍者の砦</div>
 </footer>
 </div>
 
@@ -550,7 +551,7 @@ function renderMeals(){
     d.innerHTML = `
       <div class="head"><span class="dot"></span><b>${label}</b></div>
       <div class="chips" data-list="${k}">
-        ${items.map(n=>`<span class="tag">${esc(n)}<i data-del="${k}" data-n="${esc(n)}">×</i></span>`).join('') || '<span style="font-size:12.5px;color:#b8a894">まだありません</span>'}
+        ${items.map(n=>`<span class="tag">${esc(n)}<i data-del="${k}" data-n="${esc(n)}">×</i></span>`).join('') || '<span style="font-size:14px;color:#847058">まだありません</span>'}
       </div>
       ${sugg.length ? `<div class="sugg">よく食べるもの</div><div class="chips">${sugg.map(n=>`<button class="chip ghost" data-add="${k}" data-n="${esc(n)}">+ ${esc(n)}</button>`).join('')}</div>` : ''}
       <div class="addwrap">
@@ -618,7 +619,7 @@ function showDetail(y){
        ${l.memo ? `<div class="dl"><b>メモ</b><span>${esc(l.memo)}</span></div>`:''}
        <button class="edit" data-e="${y}">この日を書きなおす</button>`
     : `<div style="font-family:'Zen Maru Gothic',sans-serif;font-weight:700;margin-bottom:4px">${M}月${D}日</div>
-       <div style="color:var(--sub);font-size:13px">記録がありません。</div>
+       <div style="color:var(--sub);font-size:14px">記録がありません。</div>
        <button class="edit" data-e="${y}">この日を記録する</button>`;
   box.querySelector('[data-e]').onclick = ()=>{
     const [a,b2,c] = y.split('-').map(Number);
