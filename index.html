@@ -372,7 +372,7 @@ nav.tabs button[aria-selected="true"]{color:var(--k-shu);box-shadow:inset 0 3px 
   <div class="card">
     <p class="lab">気をつけたいかもしれないもの</p>
     <div class="rank" id="rankBad"></div>
-    <p class="note">食べた日と、その翌日の調子を平均して、全体の平均とくらべています。3回以上食べたものだけが出ます。あくまで目安なので、気になるものは一度やめてみて確かめるのがいちばん確実です。</p>
+    <p class="note">3回以上食べたものの、食べた日と翌日の調子を全体の平均とくらべた目安です。気になるものは一度やめて確かめてください。</p>
   </div>
 
   <!-- ふりかえりを読み終えたところに広告。記録している最中には出さない -->
@@ -672,7 +672,7 @@ function renderStat(){
 function draw(id, arr, good){
   const box = document.getElementById(id);
   if(!arr.length){
-    box.innerHTML = '<div class="empty">記録がたまると、ここに出てきます。<br>同じものを3回以上たべた日が必要です。</div>';
+    box.innerHTML = '<div class="empty">同じものを3回以上食べると、ここに出ます。</div>';
     return;
   }
   const max = Math.max(...arr.map(o=>Math.abs(o.diff)), .5);
