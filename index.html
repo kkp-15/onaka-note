@@ -253,6 +253,9 @@ header.app h1{font-family:var(--k-brush);font-weight:400;font-size:20px;letter-s
 .jump,.detail .edit{color:var(--k-sumi);border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);background:var(--k-kinari);box-shadow:var(--k-sh-s);font-weight:700}
 .chip{border-color:rgba(31,26,23,.45)}
 .chip[aria-pressed="true"]{background:var(--k-shu);border-color:var(--k-sumi);color:#fff}
+/* 2026-10-25 押しやすく（色は変えない）: 調子の5段階は選ぶ前の帯が31pxなので、帯の上の空きまで押せる範囲を伸ばす（78px）。お通じ・気になることは36→44px */
+.strip button::after{content:'';position:absolute;left:0;right:0;bottom:0;height:78px}
+.chip{min-height:44px}
 .addwrap input,.card textarea{border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r)}
 .addwrap button{background:var(--k-shu);color:#fff;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);box-shadow:var(--k-sh-s);min-height:40px}
 .addwrap button:active,.jump:active,.detail .edit:active{transform:translate(3px,3px);box-shadow:none}
